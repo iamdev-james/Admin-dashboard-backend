@@ -1,0 +1,17 @@
+Routes Needed
+*Sign-Up with Auth and google validation
+*Sign-In with auth
+
+Home-page when visited
+*Get posts articles*
+*Get individual articles*
+*Get list of writers*
+*Get individual writer*
+*Get certain post with filter(category-...)
+
+Registered Writer
+*Post new articles*(validation not yet implemented)
+*Patch a particular articles
+*Delete an articles
+*Update details
+*Get posts that has been written by you
