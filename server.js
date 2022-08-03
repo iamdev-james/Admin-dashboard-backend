@@ -2,7 +2,11 @@ const express = require('express');
 const connect_DB = require('./DB_con');
 const routerLink  = require('./api/routes');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
+
+// Socket setup
+const socket = require('socket.io');
 
 
 const { PORT } = process.env
@@ -15,19 +19,8 @@ connect_DB();
 app.use(express.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors())
 
-// Handling CORS error
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   );
-//   if (req.method === "OPTIONS") {
-//     res.header("Access-Control-Allow-Methods", "PUT, PATCH, POST,DELETE, GET")
-//     return res.status(200).json({})
-//   }
-// })
 
 // Getting Router links
 app.use('/',routerLink);
@@ -48,9 +41,24 @@ app.use((error, req, res, next) => {
 // Port
 const port = process.env.PORT || PORT;
 // Setting up my server 
-app.listen(port, (err) => {
+const server = app.listen(port, (err) => {
   if (err) {
     console.log("An error occured")
   }
   console.log("Server is up and running on port " + port)
 })
+
+// socket setup
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on('connection', socket => {
+  console.log('Made connection')
+  socket.on('Chat', data => {
+    io.sockets.emit('Chat', data)
+  })
+});
