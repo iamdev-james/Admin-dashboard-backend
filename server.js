@@ -57,8 +57,12 @@ const io = socket(server, {
 });
 
 io.on('connection', socket => {
-  console.log('Made connection')
-  socket.on('Chat', data => {
-    io.sockets.emit('Chat', data)
+  socket.on('chat', data => {
+    io.sockets.emit('chat', data)
+  })
+
+  // Broadcast typing
+  socket.on('typing', data => {
+    socket.broadcast.emit('typing', data)
   })
 });
