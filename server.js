@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Socket setup
-const socket = require('socket.io');
+const { Server } = require('socket.io');
 
 
 const { PORT } = process.env
@@ -14,7 +14,7 @@ const { PORT } = process.env
 const app = express();
 
 // Connecting to a MONGO DB server
-connect_DB();
+// connect_DB();
 
 app.use(express.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,10 +49,9 @@ const server = app.listen(port, (err) => {
 })
 
 // socket setup
-const io = socket(server, {
+const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: "http://localhost:3000"
   }
 });
 
