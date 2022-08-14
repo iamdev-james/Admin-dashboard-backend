@@ -3,13 +3,12 @@ const connect_DB = require('./DB_con');
 const routerLink  = require('./api/routes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-require('dotenv').config();
 
 // Socket setup
 const { Server } = require('socket.io');
 
 
-const { PORT } = process.env
+const PORT = 5000;
 // Initailising Express
 const app = express();
 
@@ -19,7 +18,7 @@ const app = express();
 app.use(express.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 
 // Getting Router links
@@ -51,7 +50,7 @@ const server = app.listen(port, (err) => {
 // socket setup
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000"
+    origin: "https://mydevvyadmindashboard.vercel.app"
   }
 });
 
