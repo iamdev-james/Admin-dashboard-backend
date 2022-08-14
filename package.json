@@ -2,11 +2,11 @@
   "name": "chatapp",
   "version": "1.0.0",
   "description": "A chat app for an admin dashboard employee chat section",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "server": "nodemon server.js"
+    "start": "nodemon index.js",
+    "server": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
